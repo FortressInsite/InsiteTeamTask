@@ -12,8 +12,9 @@ namespace InsiteTeamTask.Controllers
     public class AttendanceController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<IEnumerable<Attendance>> GetByGame(int seasonId, int gameId)
+        public ActionResult<IEnumerable<Attendance>> GetByGame([FromQuery]int seasonId, [FromQuery]int gameId)
         {
+            // Check valid arguments
             if (seasonId <= 0)
                 return BadRequest("Season Id not valid");
             if (gameId <= 0)
@@ -21,13 +22,14 @@ namespace InsiteTeamTask.Controllers
 
             var repo = new DataRepository();
 
+            // Get and return data with 200 code
             var attendance = repo.GetAttendanceListForGame(seasonId: seasonId, gameId: gameId);
 
             return Ok(attendance);
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Attendance>> GetByProduct(string productId)
+        [HttpGet("product")]
+        public ActionResult<IEnumerable<Attendance>> GetByProduct([FromQuery]string productId)
         {
 
             if (string.IsNullOrWhiteSpace(productId))

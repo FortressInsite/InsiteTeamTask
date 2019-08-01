@@ -1,0 +1,15 @@
+div.body {
+  padding: 0 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+span {
+  margin-right: 10px;
+}
+
+span.error {
+  color: red;
+}

@@ -1,4 +1,5 @@
 ﻿using InsiteTeamTask.Controllers;
+using InsiteTeamTask.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +24,8 @@ namespace InsiteTeamTask.Tests
             var controller = new AuthenticationController();
 
             // Act
-            var result = controller.Login(username, password);
+            var login = new Login() { Username = username, Password = password };
+            var result = controller.Login(login);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -37,7 +39,8 @@ namespace InsiteTeamTask.Tests
             var controller = new AuthenticationController();
 
             // Act
-            var result = controller.Login(null, password);
+            var login = new Login() { Username = null, Password = password };
+            var result = controller.Login(login);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
@@ -50,7 +53,8 @@ namespace InsiteTeamTask.Tests
             var controller = new AuthenticationController();
 
             // Act
-            var result = controller.Login(username, null);
+            var login = new Login() { Username = username, Password = null };
+            var result = controller.Login(login);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
@@ -63,7 +67,8 @@ namespace InsiteTeamTask.Tests
             var controller = new AuthenticationController();
 
             // Act
-            var result = controller.Login(username, "incorrectPassword");
+            var login = new Login() { Username = username, Password = "incorrectPassword" };
+            var result = controller.Login(login);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(UnauthorizedResult));

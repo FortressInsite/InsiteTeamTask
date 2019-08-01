@@ -1,0 +1,37 @@
+<div class="options">
+  <div class="selectSwitch">
+    <span>Select By: </span>
+    <label for="gameRadio">Game</label>
+    <input id="gameRadio" type="radio" name="AttendanceType" [(ngModel)]="getDataByGameSelected" [value]="true" [checked]="getDataByGameSelected">
+    <label for="productRadio">Product</label>
+    <input id="productRadio" type="radio" name="AttendanceType" [(ngModel)]="getDataByGameSelected" [value]="false" [checked]="!getDataByGameSelected">
+  </div>
+
+  <div *ngIf="getDataByGameSelected">
+    <select #seasonSelect id="SeasonSelect" (change)="onSeasonChange()" [(ngModel)]="selectedSeasonId">
+      <option *ngFor="let season of seasons" [ngValue]="season.Id">{{season.Id}}</option>
+    </select>
+    <select #gameSelect id="GameSelect" [(ngModel)]="selectedGameId">
+        <option *ngFor="let game of games" [ngValue]="game.Id">{{game.Description}}</option>
+      </select>
+  </div>
+
+  <div *ngIf="!getDataByGameSelected">
+    <select id="ProductSelect" [(ngModel)]="selectedProductId">
+      <option *ngFor="let product of products" [ngValue]="product.Id">{{product.Id}}</option>
+    </select>
+  </div>
+
+  <input type="submit" value="Get Data" (click)="getData()">
+</div>
+
+<table>
+  <tr>
+    <th>Barcode</th>
+    <th>Member Id</th>
+  </tr>
+  <tr *ngFor="let a of attendance">
+    <td>{{a.barcode}}</td>
+    <td>{{a.memberId}}</td>
+  </tr>
+</table>

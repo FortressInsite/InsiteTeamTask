@@ -13,11 +13,13 @@ namespace InsiteTeamTask.Repositories
         {
             MockDataService service = new MockDataService();
 
+            // Get matching game, return empty list if it doesn't exist
             Game game = service.Games().SingleOrDefault(g => g.SeasonId == seasonId && g.Id == gameId);
 
             if (game == null)
                 return new List<Attendance>();
 
+            // Get relevant members and tickets
             List<Product> gameProducts = service.Products()
                 .Where(p => p.SeasonId == game.SeasonId && (p.Type == ProductType.Member || (p.SeasonId == game.SeasonId && p.GameId == game.Id)))
                 .ToList();
@@ -28,6 +30,7 @@ namespace InsiteTeamTask.Repositories
                 .Where(t => gameProducts.Any(p => p.Type == ProductType.Ticket && p.Id == t.ProductId))
                 .ToList();
 
+            // Create  & return list of attendance data
             List<Attendance> attendanceList = new List<Attendance>();
 
             for(int i = 0; i < members.Count; i++)
@@ -55,6 +58,7 @@ namespace InsiteTeamTask.Repositories
         {
             MockDataService service = new MockDataService();
 
+            // Get product, return empty list if it doesn't exist
             var product = service.Products().SingleOrDefault(p => p.Id == productId);
 
             if (product == null)
@@ -64,6 +68,7 @@ namespace InsiteTeamTask.Repositories
 
             if (product.Type == ProductType.Member)
             {
+                // If the product is a membership, return the member Id
                 var member = service.Members().Single(m => m.ProductId == product.Id);
                 attendanceList.Add(new Attendance()
                 {
@@ -73,6 +78,7 @@ namespace InsiteTeamTask.Repositories
             }
             else if (product.Type == ProductType.Ticket)
             {
+                // If the product is a ticket, return all tickets with that product Id
                 var tickets = service.Tickets().Where(t => t.ProductId == product.Id);
                 foreach (var ticket in tickets)
                 {
@@ -89,7 +95,7 @@ namespace InsiteTeamTask.Repositories
 
         public List<Season> GetSeasons(int gameId)
         {
-            // I started doing this section before I realised it wasn't part of the spec ¯\_(ツ)_/¯
+            // I started doing this section before I realised it wasn't part of the spec
 
             MockDataService service = new MockDataService();
 

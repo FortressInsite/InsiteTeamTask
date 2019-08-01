@@ -24,8 +24,7 @@ namespace InsiteTeamTask
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -44,6 +43,16 @@ namespace InsiteTeamTask
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@987"))
                     };
                 });
+
+            // Make sure our client can access data. In production, this would be a lot more limited, using
+            // for example an array of origins in the appsettings.json
+            services.AddCors(setup =>
+            {
+                setup.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
 
             services
                 .AddMvc()
@@ -64,6 +73,7 @@ namespace InsiteTeamTask
             }
 
             app.UseAuthentication();
+            app.UseCors();
 
             app.UseHttpsRedirection();
             app.UseMvc();

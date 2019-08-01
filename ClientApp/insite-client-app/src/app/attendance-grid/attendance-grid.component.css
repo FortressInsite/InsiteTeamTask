@@ -1,0 +1,26 @@
+.options {
+  margin-bottom: 20px;
+}
+
+.selectSwitch {
+  margin-bottom: 5px;
+}
+
+input[type=radio], select {
+  margin-right: 5px;
+}
+
+input[type=submit] {
+  margin-top: 5px;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  min-width: 300px;
+}

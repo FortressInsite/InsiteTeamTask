@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using InsiteTeamTask.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,14 +18,15 @@ namespace InsiteTeamTask.Controllers
         private readonly string _password = "insite";
 
         [HttpPost]
-        public IActionResult Login([FromForm]string username, [FromForm]string password)
+        public IActionResult Login([FromBody]Login login)
         {
-            if (string.IsNullOrWhiteSpace(username) ||
-                string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(login.Username) ||
+                string.IsNullOrWhiteSpace(login.Password))
                 return BadRequest("Login details not valid");
 
-            if (username.ToLower() == _username && password == _password)
+            if (login.Username.ToLower() == _username && login.Password == _password)
             {
+                // If the username/password are correct, return a JWT which expires in 10 minutes time
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@987"));
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
@@ -41,6 +43,7 @@ namespace InsiteTeamTask.Controllers
             }
             else
             {
+                // If username/password doesn't match, return 401 Unauthorised
                 return Unauthorized();
             }
         }

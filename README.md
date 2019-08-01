@@ -21,11 +21,16 @@ Create a simple front-end application using Angular 2+ that consumes the API and
 members/ticket barcodes per season and a game, or product. The season and game combination
 should be selected using dropdowns. The product must be selected using a dropdown as well.
 
-## Time Limits
-We do not expect you to spend more than 3 hours on the task, yet of course you can take as much time as you like. There is no hard limit on the submission date either, yet we would like you to submit it within 5 working days of receiving it.
+## Setup
+In the repository there is now the InsiteTeamTask WebAPI, and a ClientApp folder containing the Angular application.
+To run the app, fire up the WebAPI, navigate to `ClientApp/insite-client-app` using any console/bash/whatever, and run `npm start`. The browser will open to the client application, and you should be ready to go.
 
-## Assessment
-What we are looking for is code quality. That translates to project structure, clean coding practices, commenting, SOLID principles' application, and testing as applicable. We leave the details to you :)
+The login credentials I've coded in are:
+- Username: **fortress**
+- Password: **insite**
 
-## Submission
-Create a fork of this repository. Branch off the master branch, and when you are done, create a pull request to merge the new branch in your fork into the master branch to submit your exercise. The branch should be named after your name.
+## Possible issues
+The only thing that I can think of would be that the WebAPI may be running on a different port in your environment. The webapi location is hard coded in to a couple of places (this would be set in a config file in production) which would need changing. These are:
+- The `apiUrl` variable in [ClientApp/insite-client-app/src/app/webapi-service/webapi.service.ts](ClientApp/insite-client-app/src/app/webapi-service/webapi.service.ts)
+- The JWT setup in [InsiteTeamTask/Startup.cs](InsiteTeamTask/Startup.cs)
+- The JWT setup in [InsiteTeamTask/Controllers/AuthenticationController.cs](InsiteTeamTask/Controllers/AuthenticationController.cs)

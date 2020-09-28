@@ -1,0 +1,49 @@
+<h1>Attendance</h1>
+
+<form [formGroup]="attendanceSeasonGameForm" (ngSubmit)="onSeasonGameSubmit()">  
+    <div class="form-inline">
+        <label class="control-label mr-2">Season</label>
+        <select class="form-control col-md-3 mr-2" formControlName="seasonNumber">
+            <option value="">Choose Season</option>
+            <option *ngFor="let season of allSeasons; let $index = index" [value]="allSeasons[$index]">{{season}}</option>
+        </select>     
+        <label class="control-label mr-2">Game</label>
+        <select class="form-control col-md-3 mr-2" formControlName="gameNumber">
+            <option value="">Choose Game</option>
+            <option *ngFor="let game of allGames; let $index = index" [value]="allGames[$index]">{{game}}</option>
+        </select>   
+        <button btn btn-secondary float-right type='submit' [disabled]="seasonNumber.value === '' || gameNumber.value === '' ">Submit</button>
+    </div>
+</form>
+<form [formGroup]="attendanceProductForm" (ngSubmit)="onProductSubmit()">
+    <div class="form-inline">
+      <label class="control-label mr-2">Product</label>
+      <select class="form-control col-md-3 mr-2" formControlName="productId">
+          <option value="">Choose Product</option>
+          <option *ngFor="let product of allProducts; let $index = index" [value]="allProducts[$index]">{{product}}</option>
+      </select>   
+      <button btn btn-secondary float-right type='submit' [disabled]="productId.value === '' ">Submit</button>
+  </div>
+</form>
+
+<br>
+<table class="table table-sm table-hover">
+  <div>
+    <h2 *ngIf="!resultsExists">No results found.</h2>
+    <h3 *ngIf="resultsExists">Showing results for {{searchAction}}</h3>
+  </div>
+  <div [hidden]="!resultsExists">
+    <thead>
+      <tr>
+        <th>Member ID</th>
+        <th>Barcode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attend of attendance">
+        <td>{{ attend.memberId }}</td>
+        <td>{{ attend.barcode }}</td>
+      </tr>
+    </tbody>
+  </div>
+</table>

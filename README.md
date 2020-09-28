@@ -5,12 +5,12 @@
 
 First start the backend:
 ```
-dotnet run --project ./InsiteTeamTask/InsiteTeamTask.csproj 
+dotnet run --project ./InsiteTeamTask/InsiteTeamTask.csproj
 ```
 
-Then start the frontend:
+Then in another terminal install and start the frontend:
 ```
-npm start --prefix ./InsiteTeamTask/ClientApp
+npm install --prefix ./InsiteTeamTask/ClientApp && npm start --prefix ./InsiteTeamTask/ClientApp
 ```
 
 Now navigate to https://localhost:5001

@@ -41,7 +41,7 @@ namespace InsiteTeamTask
                         .AllowAnyHeader());
             });
 
-            string clientDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\FortressInsiteClientApp";
+            string clientDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + @"\Front End";
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -67,7 +67,7 @@ namespace InsiteTeamTask
 
             app.UseCors("CorsPolicy");
 
-            string clientDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\FortressInsiteClientApp";
+            string clientDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + @"\Front End";
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = clientDirectory;

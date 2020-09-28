@@ -1,5 +1,7 @@
-#Insite Team Task - Daniel Scott
-##Running the app locally
+# Insite Team Task - Daniel Scott
+## Running the app locally
+
+(execute these commands from the repo root dir)
 
 First start the backend:
 ```

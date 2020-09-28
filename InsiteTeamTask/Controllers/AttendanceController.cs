@@ -6,39 +6,39 @@ using System.Linq;
 
 namespace InsiteTeamTask.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AttendanceController : ControllerBase
-    {
-        private IDataRepository _dataRepository;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class AttendanceController : ControllerBase
+	{
+		private IDataRepository _dataRepository;
 
-        public AttendanceController(IDataRepository dataRepository)
-        {
-            this._dataRepository = dataRepository;
-        }
+		public AttendanceController(IDataRepository dataRepository)
+		{
+			this._dataRepository = dataRepository;
+		}
 
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<Attendance>> Get(string productId, int? seasonId, int? gameId)
-        {
-            if (productId == null && (seasonId == null || gameId == null))
-            {
-                return BadRequest("Requires either productId or both seasonId and gameId");
-            }
+		// GET api/values
+		[HttpGet]
+		public ActionResult<IEnumerable<Attendance>> Get(string productId, int? seasonId, int? gameId)
+		{
+			if (productId == null && (seasonId == null || gameId == null))
+			{
+				return BadRequest("Requires either productId or both seasonId and gameId");
+			}
 
-            if (productId == null)
-            {
-                var product = _dataRepository.GetProducts().Find(p => p.SeasonId == seasonId && p.GameId == gameId);
-                if (product == null)
-                {
-                    return NotFound();
-                }
+			if (productId == null)
+			{
+				var product = _dataRepository.GetProducts().Find(p => p.SeasonId == seasonId && p.GameId == gameId);
+				if (product == null)
+				{
+					return NotFound();
+				}
 				productId = product.Id;
-            }
+			}
 
-            var attendance = _dataRepository.GetAttendanceListFor(productId);
+			var attendance = _dataRepository.GetAttendanceListFor(productId);
 
-            return Ok(attendance);
-        }
-    }
+			return Ok(attendance);
+		}
+	}
 }

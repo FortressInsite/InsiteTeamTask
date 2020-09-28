@@ -8,7 +8,7 @@ namespace InsiteTeamTask.Repositories
 		List<Attendance> GetAttendanceListFor(string productId);
 		List<Season> GetSeasons();
 		List<Product> GetProducts();
-        List<Game> GetGames();
+		List<Game> GetGames();
 	}
 }
 

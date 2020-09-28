@@ -13,21 +13,21 @@ import { AttendancesComponent } from './attendances/attendances.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AttendancesComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-	HttpClientModule,
-	MatToolbarModule,
-	MatTableModule,
-	MatButtonModule,
-    MatSelectModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		AttendancesComponent
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		HttpClientModule,
+		MatToolbarModule,
+		MatTableModule,
+		MatButtonModule,
+		MatSelectModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

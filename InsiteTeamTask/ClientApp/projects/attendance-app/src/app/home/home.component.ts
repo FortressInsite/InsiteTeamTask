@@ -13,7 +13,7 @@ import { Game } from '../models/game';
 
 export class HomeComponent implements OnInit {
 
-    attendances: Attendance[] = [];
+	attendances: Attendance[] = [];
 	products: Product[] = [];
 	seasons: Season[] = [];
 	allGames: Game[] = [];
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
 	error: string = "";
 
-	constructor(private apiService: ApiService) { 
+	constructor(private apiService: ApiService) {
 		this.apiService.getProducts().subscribe(products => this.products = products);
 		this.apiService.getSeasons().subscribe(seasons => this.seasons = seasons);
 		this.apiService.getGames().subscribe(games => this.allGames = games);

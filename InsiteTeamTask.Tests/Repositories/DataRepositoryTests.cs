@@ -7,31 +7,31 @@ using Moq;
 
 namespace InsiteTeamTask.Tests.Repositories
 {
-	[TestClass]
-	public class DataRepositoryTests
-	{
-		private DataRepository sut;
-		private Mock<IDataService> dataService = new Mock<IDataService>();
+    [TestClass]
+    public class DataRepositoryTests
+    {
+        private DataRepository sut;
+        private Mock<IDataService> dataService = new Mock<IDataService>();
 
-		[TestInitialize]
-		public void Setup()
-		{
-			sut = new DataRepository(dataService.Object);
-		}
+        [TestInitialize]
+        public void Setup()
+        {
+            sut = new DataRepository(dataService.Object);
+        }
 
-		[TestMethod]
-		public void GetAttendanceListFor_ReturnsCorrectData()
-		{
-			//Arrange
-			dataService.Setup(x => x.Members()).Returns(new List<Member>());
-			dataService.Setup(x => x.Products()).Returns(new List<Product>());
-			dataService.Setup(x => x.Games()).Returns(new List<Game>());
-			dataService.Setup(x => x.Seasons()).Returns(new List<Season>());
+        [TestMethod]
+        public void GetAttendanceListFor_ReturnsCorrectData()
+        {
+            //Arrange
+            dataService.Setup(x => x.Members()).Returns(new List<Member>());
+            dataService.Setup(x => x.Products()).Returns(new List<Product>());
+            dataService.Setup(x => x.Games()).Returns(new List<Game>());
+            dataService.Setup(x => x.Seasons()).Returns(new List<Season>());
 
-			//Act
-			var result = sut.GetAttendanceListFor("");
+            //Act
+            var result = sut.GetAttendanceListFor("");
 
-			//Assert
-		}
-	}
+            //Assert
+        }
+    }
 }

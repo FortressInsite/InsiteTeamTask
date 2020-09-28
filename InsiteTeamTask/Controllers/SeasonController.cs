@@ -6,23 +6,23 @@ using System.Linq;
 
 namespace InsiteTeamTask.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
-    {
-        private IDataRepository _dataRepository;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class ProductController : ControllerBase
+	{
+		private IDataRepository _dataRepository;
 
-        public ProductController(IDataRepository dataRepository)
-        {
-            this._dataRepository = dataRepository;
-        }
+		public ProductController(IDataRepository dataRepository)
+		{
+			this._dataRepository = dataRepository;
+		}
 
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
-        {
+		// GET api/values
+		[HttpGet]
+		public ActionResult<IEnumerable<Product>> Get()
+		{
 			var products = _dataRepository.GetProducts();
-            return Ok(products);
-        }
-    }
+			return Ok(products);
+		}
+	}
 }

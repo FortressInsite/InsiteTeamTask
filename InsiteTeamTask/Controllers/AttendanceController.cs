@@ -2,6 +2,7 @@
 using InsiteTeamTask.Models;
 using InsiteTeamTask.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace InsiteTeamTask.Controllers
 {
@@ -9,13 +10,33 @@ namespace InsiteTeamTask.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
+        private IDataRepository _dataRepository;
+
+        public AttendanceController(IDataRepository dataRepository)
+        {
+            this._dataRepository = dataRepository;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Attendance>> Get()
+        public ActionResult<IEnumerable<Attendance>> Get(string productId, int? seasonId, int? gameId)
         {
-            var repo = new DataRepository();
+            if (productId == null && (seasonId == null || gameId == null))
+            {
+                return BadRequest("Requires either productId or both seasonId and gameId");
+            }
 
-            var attendance = repo.GetAttendanceListFor(gameNumber: 3);
+            if (productId == null)
+            {
+                var product = _dataRepository.GetProducts().Find(p => p.SeasonId == seasonId && p.GameId == gameId);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+				productId = product.Id;
+            }
+
+            var attendance = _dataRepository.GetAttendanceListFor(productId);
 
             return Ok(attendance);
         }

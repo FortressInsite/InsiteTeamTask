@@ -1,0 +1,44 @@
+<div>
+	<div>
+		View attendance by:
+	</div>
+	<div>
+		<button mat-button (click)="setToProduct()">Product</button>
+		<button mat-button (click)="setToSeasonAndGame()">Season and Game</button>
+	</div>
+	<label *ngIf="error" style="color:red">{{ error }}</label>
+	<div *ngIf="isProductSelectionMethod">
+		<mat-form-field appearance="fill">
+			<mat-label>Product ID</mat-label>
+			<mat-select>
+				<mat-option *ngFor="let product of products" (click)="onSelectProduct(product)" [value]="product.id">
+					{{product.id}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div *ngIf="!isProductSelectionMethod">
+		<mat-form-field appearance="fill">
+			<mat-label>Season</mat-label>
+			<mat-select>
+				<mat-option *ngFor="let season of seasons" (click)="onSelectSeason(season)" [value]="season.id">
+					{{season.id}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field appearance="fill">
+			<mat-label>Game</mat-label>
+			<mat-select>
+				<mat-option *ngFor="let game of games" (click)="onSelectGame(game)" [value]="game.description">
+					{{game.description}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div>
+		<button mat-button (click)="getAttendances()" >Get Attendances</button>
+	</div>
+</div>
+<div *ngIf="attendances.length>0" >
+	<insite-team-attendances [attendances]="attendances"></insite-team-attendances>
+</div>

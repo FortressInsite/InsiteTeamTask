@@ -1,0 +1,13 @@
+<h2>Attendances</h2>
+<mat-table [dataSource]="attendances" class="mat-elevation-z8">
+  <ng-container matColumnDef="memberId">
+    <th mat-header-cell *matHeaderCellDef> Member ID </th>
+    <td mat-cell *matCellDef="let attendance"> {{attendance.memberId}} </td>
+  </ng-container>
+  <ng-container matColumnDef="barcode">
+    <th mat-header-cell *matHeaderCellDef> Barcode </th>
+    <td mat-cell *matCellDef="let attendance"> {{attendance.barcode}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>

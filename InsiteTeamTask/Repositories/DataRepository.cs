@@ -7,42 +7,41 @@ using System.Threading.Tasks;
 
 namespace InsiteTeamTask.Repositories
 {
-    public class DataRepository
+    public class DataRepository : IDataRepository
     {
-        public List<Attendance> GetAttendanceListFor(int gameNumber)
+        private IDataService _dataService;
+
+        public DataRepository(IDataService dataService)
         {
-            MockDataService service = new MockDataService();
+            _dataService = dataService;
+        }
 
-            List<Member> members = service.Members().ToList();
-            List<Ticket> tickets = service.Tickets().ToList();
-            List<Product> products = service.Products().ToList();
+        public List<Attendance> GetAttendanceListFor(string productId)
+        {
+            var attendanceList = new List<Attendance>();
 
-            List<Attendance> attendanceList = new List<Attendance>();
+            attendanceList.AddRange(_dataService.Members()
+				.Where(m => m.ProductId == productId)
+				.Select(m => new Attendance
+				{
+					Barcode = "N/A",
+					MemberId = m.Id
+				}));
 
-            for(int i = 0; i < members.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
-                {
-                    Barcode = "N/A",
-                    MemberId = members[i].Id
-                });
-            }
-
-            for (int i = 0; i < tickets.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
-                {
-                    Barcode = tickets[i].Barcode,
-                    MemberId = 0
-                });
-            }
+			attendanceList.AddRange(_dataService.Tickets()
+				.Where(t => t.ProductId == productId)
+				.Select(t => new Attendance
+				{
+					Barcode = t.Barcode,
+					MemberId = 0
+				}));
 
             return attendanceList;
         }
 
-        public List<Season> GetSeasons(int eventId)
+        public List<Season> GetSeasons()
         {
-            throw new NotImplementedException();
+			return _dataService.Seasons().ToList();
         }
 
         public List<Event> GetEvents()
@@ -52,12 +51,12 @@ namespace InsiteTeamTask.Repositories
 
         public List<Product> GetProducts()
         {
-            throw new NotImplementedException();
+            return _dataService.Products().ToList();
         }
 
         public List<Game> GetGames()
         {
-            throw new NotImplementedException();
+			return _dataService.Games().ToList();
         }
     }
 }

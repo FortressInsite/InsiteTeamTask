@@ -11,6 +11,8 @@ namespace InsiteTeamTask.MockData
     {
         IEnumerable<Member> Members();
 
+        IEnumerable<Ticket> Tickets();
+
         IEnumerable<Product> Products();
 
         IEnumerable<Game> Games();

@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using InsiteTeamTask.MockData;
+using InsiteTeamTask.Repositories;
 
 namespace InsiteTeamTask
 {
@@ -26,6 +29,8 @@ namespace InsiteTeamTask
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IDataService, MockDataService>();
+            services.AddScoped<IDataRepository, DataRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,10 @@ namespace InsiteTeamTask
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSpa(spa =>
+                    {
+						spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    });
         }
     }
 }

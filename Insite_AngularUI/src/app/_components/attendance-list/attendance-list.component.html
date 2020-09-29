@@ -1,0 +1,25 @@
+<div id="attendanceListContainer">
+    <h2>Attendance List</h2>
+
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="primary" value="3" selected>MCI vs LIV</mat-chip>
+        <mat-chip color="primary" value="4" selected>BOU vs ARS</mat-chip>
+        <mat-chip color="primary" value="5" selected>LIV vs AVA</mat-chip>
+        <mat-chip color="primary" value="12" selected>ARS vs MUN</mat-chip>
+        <mat-chip color="primary" value="3" selected>CRY vs EVE</mat-chip>
+        <mat-chip color="accent" value="S6" selected>2012 / 13</mat-chip>
+        <mat-chip color="accent" value="S7" selected>2016 / 17</mat-chip>
+        <mat-chip color="accent" value="S8" selected>2019 / 20</mat-chip>
+    </mat-chip-list>
+
+    <mat-form-field>
+        <mat-label>Product Number</mat-label>
+        <textarea matInput></textarea>
+    </mat-form-field>
+
+    <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let attendance of attendances" [value]="attendance.memberId">
+            Member ID: {{attendance.memberId}} | Barcode: {{attendance.barcode}}
+        </mat-list-option>
+    </mat-selection-list>
+  </div>

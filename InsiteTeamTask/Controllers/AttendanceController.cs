@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using InsiteTeamTask.Models;
 using InsiteTeamTask.Repositories;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InsiteTeamTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/values")]
+    [EnableCors("MyPolicy")]
     [ApiController]
     public class AttendanceController : ControllerBase
     {

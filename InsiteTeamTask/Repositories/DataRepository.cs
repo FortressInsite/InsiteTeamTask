@@ -16,25 +16,39 @@ namespace InsiteTeamTask.Repositories
             List<Member> members = service.Members().ToList();
             List<Ticket> tickets = service.Tickets().ToList();
             List<Product> products = service.Products().ToList();
+            List<Game> games = service.Games().ToList();
+            List<Season> seasons = service.Seasons().ToList();
 
             List<Attendance> attendanceList = new List<Attendance>();
 
-            for(int i = 0; i < members.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
-                {
-                    Barcode = "N/A",
-                    MemberId = members[i].Id
-                });
-            }
+            //for (int i = 0; i < members.Count; i++)
+            //{
+            //    attendanceList.Add(new Attendance()
+            //    {
+            //        Barcode = "N/A",
+            //        MemberId = members[i].Id
+            //    });
+            //}
 
-            for (int i = 0; i < tickets.Count; i++)
+            //for (int i = 0; i < tickets.Count; i++)
+            //{
+            //    attendanceList.Add(new Attendance()
+            //    {
+            //        Barcode = tickets[i].Barcode,
+            //        MemberId = 0
+            //    });
+            //}
+
+            for (int i = 0; i < products.Count; i++)
             {
-                attendanceList.Add(new Attendance()
+                if (products[i].GameId == 3)
                 {
-                    Barcode = tickets[i].Barcode,
-                    MemberId = 0
-                });
+                    attendanceList.Add(new Attendance()
+                    {
+                        Barcode = tickets[i].Barcode,
+                        MemberId = 0
+                    });
+                }
             }
 
             return attendanceList;

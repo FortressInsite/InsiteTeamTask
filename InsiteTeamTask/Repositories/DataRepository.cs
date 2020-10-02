@@ -9,7 +9,7 @@ namespace InsiteTeamTask.Repositories
 {
     public class DataRepository
     {
-        public List<Attendance> GetAttendanceListFor(int gameNumber)
+        public List<Attendance> GetAttendanceListFor(int gameNumber, int seasonNumber, string productNumber)
         {
             MockDataService service = new MockDataService();
 
@@ -19,30 +19,81 @@ namespace InsiteTeamTask.Repositories
 
             List<Attendance> attendanceList = new List<Attendance>();
 
-            for(int i = 0; i < members.Count; i++)
+            foreach (var product in products)
             {
-                attendanceList.Add(new Attendance()
+                for (int i = 0; i < members.Count; i++)
                 {
-                    Barcode = "N/A",
-                    MemberId = members[i].Id
-                });
-            }
+                    if (product.GameId == gameNumber && product.SeasonId == seasonNumber && product.Id == productNumber && productNumber == members[i].ProductId)
+                    {
+                        attendanceList.Add(new Attendance()
+                        {
+                            Barcode = "N/A",
+                            MemberId = members[i].Id
+                        });
+                    }
+                }
 
-            for (int i = 0; i < tickets.Count; i++)
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (product.GameId == gameNumber && product.SeasonId == seasonNumber && product.Id == productNumber && productNumber == tickets[i].ProductId)
+                    {
+                        attendanceList.Add(new Attendance()
+                        {
+                            Barcode = tickets[i].Barcode,
+                            MemberId = 0
+                        });
+                    }
+                }
+                
+            }
+            return attendanceList;
+        }
+
+        public List<Attendance> GetAttendanceListFor(int gameNumber, int seasonNumber)
+        {
+            MockDataService service = new MockDataService();
+
+            List<Member> members = service.Members().ToList();
+            List<Ticket> tickets = service.Tickets().ToList();
+            List<Product> products = service.Products().ToList();
+
+            List<Attendance> attendanceList = new List<Attendance>();
+
+            foreach (var product in products)
             {
-                attendanceList.Add(new Attendance()
+                for (int i = 0; i < members.Count; i++)
                 {
-                    Barcode = tickets[i].Barcode,
-                    MemberId = 0
-                });
-            }
+                    if (product.GameId == gameNumber && product.SeasonId == seasonNumber && product.Id == members[i].ProductId)
+                    {
+                        attendanceList.Add(new Attendance()
+                        {
+                            Barcode = "N/A",
+                            MemberId = members[i].Id
+                        });
+                    }
+                }
 
+                for (int i = 0; i < tickets.Count; i++)
+                {
+                    if (product.GameId == gameNumber && product.SeasonId == seasonNumber && product.Id == tickets[i].ProductId)
+                    {
+                        attendanceList.Add(new Attendance()
+                        {
+                            Barcode = tickets[i].Barcode,
+                            MemberId = 0
+                        });
+                    }
+                }
+            }
             return attendanceList;
         }
 
         public List<Season> GetSeasons(int eventId)
         {
-            throw new NotImplementedException();
+            MockDataService service = new MockDataService();
+            List<Season> seasons = service.Seasons().ToList();
+            
+            return seasons;
         }
 
         public List<Event> GetEvents()
@@ -52,12 +103,19 @@ namespace InsiteTeamTask.Repositories
 
         public List<Product> GetProducts()
         {
-            throw new NotImplementedException();
+            MockDataService service = new MockDataService();
+            List<Product> products = service.Products().ToList();
+
+            return products;
         }
 
         public List<Game> GetGames()
         {
-            throw new NotImplementedException();
+            MockDataService service = new MockDataService();
+            List<Game> games = service.Games().ToList();
+
+            return games;
         }
+
     }
 }

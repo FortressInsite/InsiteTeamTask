@@ -1,0 +1,52 @@
+<div class="list-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                GAME:
+            </div>
+            <div class="col-sm">
+                <select class="dropdown" (change)="gameSelected($event.target.value)">
+                    <option>
+                    </option>
+                    <option>
+                        0
+                    </option>
+                    <option *ngFor="let game of service.gameList" [value]="game.id">
+                        {{game.description}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                SEASON:
+            </div>
+            <div class="col-sm">
+                <select class="dropdown" (change)="seasonSelected($event.target.value)">
+                    <option>
+                    </option>
+                    <option *ngFor="let season of service.seasonList" [value]="season.id">
+                        {{season.id}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                PRODUCT ID:
+            </div>
+            <div class="col-sm">
+                <select class="dropdown" (change)="productSelected($event.target.value)">
+                    <option>
+                    </option>
+                    <option *ngFor="let product of service.productList" [value]="product.id">
+                        {{product.id}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <button (click)="initializeAttendanceData()" color="primary">Primary</button>
+    </div>
+</div>

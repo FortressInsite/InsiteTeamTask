@@ -1,0 +1,23 @@
+● src
++---● app
+|   +--● fgb-details
+|   |  |--fgb-details.component.ts|.html|.css
+|   |  |
+|   |  +--● fgb-dropdown-list
+|   |  |  |--fgb-dropdown-list.component.ts|.html|.css
+|   |  |
+|   |  +--● fgb-detail
+|   |  |  |--fgb-detail.component.ts|.html|.css
+|   |  |
+|   |  +--● fgb-detail-service
+|   |  |  |--fgb-detail.service.ts
+|   |  |
+|   |  +--● fgb-models
+|   |     |--game.model.ts
+|   |     |--attendance.model.ts
+|   |     |--product.model.ts
+|   |     |--season.model.ts
+|   |
+|   |--app.module.ts
+|
+|--index.html (cdn path for bootstrap & fa icons)

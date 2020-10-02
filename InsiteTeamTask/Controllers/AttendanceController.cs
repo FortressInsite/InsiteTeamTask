@@ -10,12 +10,22 @@ namespace InsiteTeamTask.Controllers
     public class AttendanceController : ControllerBase
     {
         // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<Attendance>> Get()
+        [HttpGet("{gameNumber}/{seasonNumber}/{productNumber}")]
+        public ActionResult<IEnumerable<Attendance>> Get(int gameNumber, int seasonNumber, string productNumber)
         {
             var repo = new DataRepository();
 
-            var attendance = repo.GetAttendanceListFor(gameNumber: 3);
+            var attendance = repo.GetAttendanceListFor(gameNumber: gameNumber, seasonNumber: seasonNumber, productNumber: productNumber);
+
+            return Ok(attendance);
+        }
+
+        [HttpGet("{gameNumber}/{seasonNumber}")]
+        public ActionResult<IEnumerable<Attendance>> Get(int gameNumber, int seasonNumber)
+        {
+            var repo = new DataRepository();
+
+            var attendance = repo.GetAttendanceListFor(gameNumber: gameNumber, seasonNumber: seasonNumber);
 
             return Ok(attendance);
         }

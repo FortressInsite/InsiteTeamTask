@@ -97,6 +97,7 @@ namespace InsiteTeamTask_A.Repositories
         public List<Attendance> GetAttendanceListByProductCode(string productCode)
         {
             List<Attendance> attendanceList = new List<Attendance>();
+
             var memberProductCodes = products.Where(product => product.Id == productCode).Where(product => product.Type == ProductType.Member).ToList();
 
             for (int i = 0; i < members.Count; i++)
@@ -111,7 +112,7 @@ namespace InsiteTeamTask_A.Repositories
             }
 
 
-            var ticketMemberProductCodes = products.Where(product => product.Id == productCode).Where(product => product.Type == ProductType.Member).ToList();
+            var ticketMemberProductCodes = products.Where(product => product.Id == productCode).Where(product => product.Type == ProductType.Ticket).ToList();
 
             for (int i = 0; i < tickets.Count; i++)
             {
@@ -127,6 +128,25 @@ namespace InsiteTeamTask_A.Repositories
             return attendanceList;
 
         }
+
+        public List<Attendance> GetAll()
+        {
+            List<Attendance> attendanceList = new List<Attendance>();
+
+            for (int i = 0; i < members.Count; i++)
+            {
+                attendanceList.Add(new Attendance() { MemberId = members[i].Id, Barcode = "N/A" });
+            }
+
+            for (int i = 0; i < tickets.Count; i++)
+            {
+                attendanceList.Add(new Attendance() { Barcode = tickets[i].Barcode, MemberId = 0 });
+            }
+
+            return attendanceList;
+
+        }
+
 
 
 

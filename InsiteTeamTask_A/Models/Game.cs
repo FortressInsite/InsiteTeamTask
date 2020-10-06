@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InsiteTeamTask.Models
+namespace InsiteTeamTask_A.Models
 {
     public class Game
     {

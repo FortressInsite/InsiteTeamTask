@@ -1,4 +1,4 @@
-﻿namespace InsiteTeamTask.Models
+﻿namespace InsiteTeamTask_A.Models
 {
     public class Attendance
     {

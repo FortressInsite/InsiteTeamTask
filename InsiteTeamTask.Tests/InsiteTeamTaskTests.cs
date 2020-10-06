@@ -1,8 +1,9 @@
-using InsiteTeamTask.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using InsiteTeamTask_A.
 
-namespace InsiteTeamTask.Tests
+
+namespace InsiteTeamTask_A.Tests
 {
     [TestClass]
     public class InsiteTeamTaskTests

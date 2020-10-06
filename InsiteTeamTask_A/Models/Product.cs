@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InsiteTeamTask.Models
+namespace InsiteTeamTask_A.Models
 {
 
     public enum ProductType

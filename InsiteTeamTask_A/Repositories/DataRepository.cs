@@ -9,17 +9,16 @@ namespace InsiteTeamTask_A.Repositories
 {
     public class DataRepository
     {
-        public List<Attendance> GetAttendanceListFor(int gameNumber)
+        
+        private static MockDataService service = new MockDataService();
+        private List<Member> members = service.Members().ToList();
+        private List<Ticket> tickets = service.Tickets().ToList();
+        private List<Product> products = service.Products().ToList();
+        public List<Attendance> GetAttendanceListByGameNumber(int gameNumber)
         {
-            MockDataService service = new MockDataService();
-
-            List<Member> members = service.Members().ToList();
-            List<Ticket> tickets = service.Tickets().ToList();
-            List<Product> products = service.Products().ToList();
 
             List<Attendance> attendanceList = new List<Attendance>();
             List<Product> ticketsAttended = new List<Product>();
-
 
             for(int i = 0; i < members.Count; i++)
             {
@@ -55,18 +54,81 @@ namespace InsiteTeamTask_A.Repositories
                 }
             }
 
-            //for (int i = 0; i < tickets.Count; i++)
-            //{
-            //    attendanceList.Add(new Attendance()
-            //    {
-                    
-            //        Barcode = tickets[i].Barcode,
-            //        MemberId = 0
-            //    });
-            //}
-
             return attendanceList;
         }
+
+        public List<Attendance> GetAttendanceListBySeason(int seasonNumber)
+        {
+            List<Attendance> attendanceList = new List<Attendance>();
+
+            var seasonMembers =  products.Where(products => products.SeasonId <= seasonNumber).Where(products => products.Type == ProductType.Member).ToList();
+
+            for (int i = 0; i < members.Count; i++)
+            {
+                for (int j = 0; j < seasonMembers.Count; j++)
+                {
+                    if (seasonMembers[j].Id == members[i].ProductId)
+                    {
+                        attendanceList.Add(new Attendance() { Barcode = "N/A", MemberId = members[i].Id });
+                    }
+                }
+            }
+
+
+            var ticketMembers = products.Where(products => products.SeasonId < seasonNumber).Where(products => products.Type == ProductType.Ticket).ToList();
+
+            for (int i = 0; i < tickets.Count; i++)
+            {
+                for (int j = 0; j < ticketMembers.Count; j++)
+                {
+                    if (tickets[i].ProductId == ticketMembers[j].Id)
+                    {
+                        attendanceList.Add(new Attendance() { Barcode = tickets[i].Barcode, MemberId = 0 });
+                    }
+                }
+            }
+
+
+            return attendanceList;
+          
+        }
+
+
+        public List<Attendance> GetAttendanceListByProductCode(string productCode)
+        {
+            List<Attendance> attendanceList = new List<Attendance>();
+            var memberProductCodes = products.Where(product => product.Id == productCode).Where(product => product.Type == ProductType.Member).ToList();
+
+            for (int i = 0; i < members.Count; i++)
+            {
+                for (int j = 0; j < memberProductCodes.Count; j++)
+                {
+                    if (members[i].ProductId == memberProductCodes[j].Id)
+                    {
+                        attendanceList.Add(new Attendance() { Barcode = "N/A", MemberId = members[i].Id });
+                    }
+                }
+            }
+
+
+            var ticketMemberProductCodes = products.Where(product => product.Id == productCode).Where(product => product.Type == ProductType.Member).ToList();
+
+            for (int i = 0; i < tickets.Count; i++)
+            {
+                for (int j = 0; j < ticketMemberProductCodes.Count ; j++)
+                {
+                    if (ticketMemberProductCodes[j].Id == tickets[i].ProductId)
+                    {
+                        attendanceList.Add(new Attendance() { Barcode = tickets[i].Barcode, MemberId = 0 });
+                    }
+                }
+            }
+
+            return attendanceList;
+
+        }
+
+
 
         public List<Season> GetSeasons(int eventId)
         {

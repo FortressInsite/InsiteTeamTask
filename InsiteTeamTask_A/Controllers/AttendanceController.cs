@@ -21,7 +21,7 @@ namespace InsiteTeamTask_A.Controllers
         {
             var repo = new DataRepository();
 
-            var attendance = repo.GetAttendanceListFor(gameNumber: 5);
+            var attendance = repo.GetAttendanceListByProductCode("IT49");
 
             return Ok(attendance);
         }

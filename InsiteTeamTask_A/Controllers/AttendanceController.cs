@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using InsiteTeamTask_A.Models;
 using InsiteTeamTask_A.Repositories;
+using InsiteTeamTask_A.Filter;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace InsiteTeamTask_A.Controllers
 {
+    [ApiKeyAuth]
     [Route("api/[controller]")]
     [ApiController]
     public class AttendanceController : ControllerBase

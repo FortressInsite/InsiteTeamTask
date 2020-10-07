@@ -75,7 +75,7 @@ namespace InsiteTeamTask_A.Repositories
             }
 
 
-            var ticketMembers = products.Where(products => products.SeasonId < seasonNumber).Where(products => products.Type == ProductType.Ticket).ToList();
+            var ticketMembers = products.Where(products => products.SeasonId == seasonNumber).Where(products => products.Type == ProductType.Ticket).ToList();
 
             for (int i = 0; i < tickets.Count; i++)
             {

@@ -14,50 +14,9 @@ namespace InsiteTeamTask_A.Repositories
         private List<Member> members = service.Members().ToList();
         private List<Ticket> tickets = service.Tickets().ToList();
         private List<Product> products = service.Products().ToList();
-        public List<Attendance> GetAttendanceListByGameNumber(int gameNumber)
-        {
+       
 
-            List<Attendance> attendanceList = new List<Attendance>();
-            List<Product> ticketsAttended = new List<Product>();
-
-            for(int i = 0; i < members.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
-                {
-                    Barcode = "N/A",
-                    MemberId = members[i].Id
-                });
-            }
-
-
-            for (int i = 0; i < products.Count; i++)
-            {
-                if(gameNumber == products[i].GameId)
-                {
-                    ticketsAttended.Add(products[i]);
-                }
-            }
-
-
-            for (int i = 0; i < ticketsAttended.Count; i++)
-            {
-                for (int j = 0; j < tickets.Count; j++)
-                {
-                    if(ticketsAttended[i].Id ==  tickets[j].ProductId)
-                    {
-                        attendanceList.Add(new Attendance()
-                        {
-                            Barcode = tickets[i].Barcode,
-                            MemberId = 0
-                        });
-                    }
-                }
-            }
-
-            return attendanceList;
-        }
-
-        public List<Attendance> GetAttendanceListBySeason(int seasonNumber)
+        public List<Attendance> GetAttendanceListBySeasonAndGame(int seasonNumber, int gameNumber)
         {
             List<Attendance> attendanceList = new List<Attendance>();
 
@@ -75,7 +34,7 @@ namespace InsiteTeamTask_A.Repositories
             }
 
 
-            var ticketMembers = products.Where(products => products.SeasonId == seasonNumber).Where(products => products.Type == ProductType.Ticket).ToList();
+            var ticketMembers = products.Where(products => products.SeasonId == seasonNumber).Where(products => products.GameId == gameNumber).Where(products => products.Type == ProductType.Ticket).ToList();
 
             for (int i = 0; i < tickets.Count; i++)
             {

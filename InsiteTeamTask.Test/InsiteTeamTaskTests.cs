@@ -6,33 +6,19 @@ namespace InsiteTeamTask.Test
     [TestFixture]
     public class InsiteTeamTaskTests
     {
-        [TestCase(3,9)]
-        [TestCase(4,17)]
-        [TestCase(5, 8)]
-        [TestCase(12,6)]
-        public void GetAttendanceListByGameNumber(int x, int expected )
-        {
-            // Arrange
-            var instance = new DataRepository();
-
-            //Act
-            var actual = instance.GetAttendanceListByGameNumber(x).Count;
-
-            //Assert
-            Assert.AreEqual(expected, actual);
-
-        }
-
-        [TestCase(12,4)]
-        [TestCase(16,2)]
-        [TestCase(19,21)]
-        public void GetAttendanceListBySeason(int x, int expected)
+        [TestCase(12,3,4)]
+        [TestCase(16,12,2)]
+        [TestCase(19,3,6)]
+        [TestCase(19,4,17)]
+        [TestCase(19,5,8)]
+        
+        public void GetAttendanceListBySeasonAndGame(int x, int y, int expected)
         {
             //Arrange
             var instance = new DataRepository();
 
             //Act
-            var actual = instance.GetAttendanceListBySeason(x).Count;
+            var actual = instance.GetAttendanceListBySeasonAndGame(x,y).Count;
 
             //Assert
             Assert.AreEqual(expected, actual);

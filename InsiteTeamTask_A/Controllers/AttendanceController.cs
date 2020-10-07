@@ -32,12 +32,12 @@ namespace InsiteTeamTask_A.Controllers
 
 
         
-        [HttpGet("[action]/{seasonNumber}")]
-        public ActionResult<IEnumerable<Attendance>> Season(int seasonNumber)
+        [HttpGet("[action]/{seasonNumber}/{gameNumber}")]
+        public ActionResult<IEnumerable<Attendance>> SeasonAndGame(int seasonNumber, int gameNumber)
         {
             var repo = new DataRepository();
 
-            var attendance = repo.GetAttendanceListBySeason(seasonNumber);
+            var attendance = repo.GetAttendanceListBySeasonAndGame(seasonNumber, gameNumber);
 
             return Ok(attendance);
         }
@@ -53,15 +53,6 @@ namespace InsiteTeamTask_A.Controllers
             return Ok(attendance);
         }
 
-        [HttpGet("[action]/{gameId}")]
-        public ActionResult<IEnumerable<Attendance>> Game(int gameId)
-        {
-            var repo = new DataRepository();
-
-            var attendance = repo.GetAttendanceListByGameNumber(gameId);
-
-            return Ok(attendance);
-        }
 
       
         

@@ -1,17 +1,38 @@
-<div>
-  <mat-form-field>
-    <mat-label>Product</mat-label>
-    <mat-select [(ngModel)]="selectedValue" (ngModelChange)="changeHandler()">
-      <mat-option value="">All</mat-option>
-      <mat-option value="LV302S">LV302</mat-option>
-      <mat-option value="MN319A">MN319A</mat-option>
-      <mat-option value="BM1249">BM1249</mat-option>
-      <mat-option value="AR3942">AR3942</mat-option>
-      <mat-option value="CH5490">CH5490</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div >
+  <div class="product-dropdown">
+    <mat-form-field>
+      <mat-label>Product</mat-label>
+      <mat-select
+        [(ngModel)]="selectedValue"
+        (ngModelChange)="changeProductHandler()"
+      >
+        <mat-option value="">All</mat-option>
+        <mat-option value="LV302S">LV302</mat-option>
+        <mat-option value="MN319A">MN319A</mat-option>
+        <mat-option value="BM1249">BM1249</mat-option>
+        <mat-option value="AR3942">AR3942</mat-option>
+        <mat-option value="CH5490">CH5490</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="season-dropdown">
+    <mat-form-field>
+      <mat-label>Season & Game</mat-label>
+      <mat-select
+        [(ngModel)]="selectedValue"
+        (ngModelChange)="changeSeasonHandler()"
+      >
+        <mat-option value="">All</mat-option>
+        <mat-option value="12,4">S12 G4</mat-option>
+        <mat-option value="16,2">S16 G2</mat-option>
+        <mat-option value="19,3">S19 G3</mat-option>
+        <mat-option value="19,4">S19 G4</mat-option>
+        <mat-option value="19,5">S19 G5</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
-<div>
+<div class="table">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->

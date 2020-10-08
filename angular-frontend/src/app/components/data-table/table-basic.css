@@ -1,3 +1,9 @@
 table {
-  width: 35%;
+  width: 30%;
+  margin: auto;
+}
+
+.product-dropdown {
+  float: left;
+  margin-left: 20px;
 }

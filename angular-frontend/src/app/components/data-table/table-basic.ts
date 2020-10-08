@@ -25,7 +25,18 @@ export class TableBasic implements OnInit {
     });
   }
 
-  changeHandler() {
+  changeSeasonHandler() {
+    const SeasonArray = this.selectedValue.split(',');
+    if (this.selectedValue == '') {
+      this.TotalList();
+    } else {
+      this.api
+        .GetSeasonAndGame(parseInt(SeasonArray[0]), parseInt(SeasonArray[1]))
+        .subscribe((data) => (this.dataSource = new MatTableDataSource(data)));
+    }
+  }
+
+  changeProductHandler() {
     if (this.selectedValue == '') {
       this.TotalList();
     } else {

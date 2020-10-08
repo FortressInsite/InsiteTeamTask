@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using InsiteTeamTask.LoggerService;
 using InsiteTeamTask.Models;
 using InsiteTeamTask.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace InsiteTeamTask.Controllers
 {
@@ -9,15 +13,44 @@ namespace InsiteTeamTask.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<Attendance>> Get()
+        private readonly IDataRepository _dataRepository;
+        private ILoggerMessage _loggerMessage;
+
+        public AttendanceController(IDataRepository dataRepository, ILoggerMessage loggerMessage)
         {
-            var repo = new DataRepository();
+            _dataRepository = dataRepository;
+            _loggerMessage = loggerMessage;
+        }
 
-            var attendance = repo.GetAttendanceListFor(gameNumber: 3);
 
-            return Ok(attendance);
+        // GET api/values
+        /// <summary>
+        /// return attendance list  with prodId
+        /// </summary>
+        /// <param name="prodId"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public ActionResult<IEnumerable<Attendance>> GetProduct(string prodId)
+        {
+            var attendanceList = _dataRepository.GetAttendanceListForProduct(prodId);
+
+            return Ok(attendanceList);
+        }
+
+        /// <summary>
+        /// returns seasonId and gameId
+        /// </summary>
+        /// <param name="seasonId"></param>
+        /// <param name="gameId"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        public ActionResult<IEnumerable<Attendance>> GetGame(int gameId, int seasonId) 
+        {
+            var attendanceList = _dataRepository.GetAttendanceForGame(gameId, seasonId);
+
+            return Ok(attendanceList);
         }
     }
 }

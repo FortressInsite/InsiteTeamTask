@@ -7,57 +7,62 @@ using System.Threading.Tasks;
 
 namespace InsiteTeamTask.Repositories
 {
-    public class DataRepository
+    public class DataRepository : IDataRepository
     {
-        public List<Attendance> GetAttendanceListFor(int gameNumber)
+        private readonly IDataService _dataService;
+        public DataRepository(IDataService dataService)
         {
-            MockDataService service = new MockDataService();
+            _dataService = dataService;
+        }
+      
+        public List<Attendance> GetAttendanceListForProduct(string prodId)
+        {
+            var attendanceList = new List<Attendance>();
+            if(prodId != null){
+            attendanceList.Union(_dataService.Tickets().Where(ticket => ticket.ProductId == prodId)
+            .Select(ticket => new Attendance{
+                MemberId = 0,
+                Barcode = ticket.Barcode
+            }));
 
-            List<Member> members = service.Members().ToList();
-            List<Ticket> tickets = service.Tickets().ToList();
-            List<Product> products = service.Products().ToList();
-
-            List<Attendance> attendanceList = new List<Attendance>();
-
-            for(int i = 0; i < members.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
-                {
-                    Barcode = "N/A",
-                    MemberId = members[i].Id
-                });
+            attendanceList.Union(_dataService.Members().Where(member => member.ProductId == prodId)
+            .Select(member => new Attendance {
+                MemberId = member.Id,
+                Barcode = "N/A"
+            }));
             }
+            return attendanceList;
 
-            for (int i = 0; i < tickets.Count; i++)
+
+        }
+
+        public List<Attendance> GetAttendanceForGame(int gameId, int seasonId)
+        {
+            var attendanceList = new List<Attendance>();
+
+            attendanceList.AddRange(_dataService.Products().Where(prod => prod.GameId == gameId && prod.SeasonId == seasonId).Select(prod => new Attendance
             {
-                attendanceList.Add(new Attendance()
-                {
-                    Barcode = tickets[i].Barcode,
-                    MemberId = 0
-                });
-            }
+                Barcode = "N/A",
+                MemberId = prod.GameId
+            }));
 
             return attendanceList;
+    
         }
 
-        public List<Season> GetSeasons(int eventId)
+        public List<Game> GetAllGames()
         {
-            throw new NotImplementedException();
+            return _dataService.Games().ToList();
         }
 
-        public List<Event> GetEvents()
+        public List<Product> GetAllProducts()
         {
-            throw new NotImplementedException();
+            return _dataService.Products().ToList();
         }
 
-        public List<Product> GetProducts()
+        public List<Season> GetAllSeasons()
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Game> GetGames()
-        {
-            throw new NotImplementedException();
+            return _dataService.Seasons().ToList();
         }
     }
 }

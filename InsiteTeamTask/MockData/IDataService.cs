@@ -9,6 +9,7 @@ namespace InsiteTeamTask.MockData
 {
     public interface IDataService
     {
+        IEnumerable<Ticket> Tickets();
         IEnumerable<Member> Members();
 
         IEnumerable<Product> Products();

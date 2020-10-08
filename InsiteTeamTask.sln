@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsiteTeamTask", "InsiteTeamTask\InsiteTeamTask.csproj", "{21ADB46E-89E9-4424-9C1D-78BC0968BA37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsiteTeamTask", "InsiteTeamTask\InsiteTeamTask.csproj", "{21ADB46E-89E9-4424-9C1D-78BC0968BA37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsiteTeamTask.Tests", "InsiteTeamTask.Tests\InsiteTeamTask.Tests.csproj", "{761B9D68-0962-4E2C-9C95-DBFE6F897CDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsiteTeamTask.Tests", "InsiteTeamTask.Tests\InsiteTeamTask.Tests.csproj", "{761B9D68-0962-4E2C-9C95-DBFE6F897CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

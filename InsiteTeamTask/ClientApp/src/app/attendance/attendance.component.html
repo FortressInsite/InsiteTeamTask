@@ -1,0 +1,82 @@
+<p>Select Attendence by Game and Season</p>
+
+<div class="row">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-6">Season</div>
+      <div class="col-6">
+        <div *ngIf="seasons">
+          <select (change)="setSeason($event.target.value)">
+            <option disabled="disabled">Select Season</option>
+            <option *ngFor="let season of seasons" value={{season.id}}>{{season.id}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6">Game</div>
+        <div class="col-6">
+          <div *ngIf="games">
+            <select (change)="setGame($event.target.value)">
+              <option disabled="disabled">Select Game</option>
+              <option *ngFor="let game of games" value={{game.id}}>{{game.id}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button (click)="getAttendanceGameAndSeason()">Get Attendaces By Game and Season</button>
+
+<div *ngIf="attendances">
+  <h3>Members</h3>
+  <ul>
+    <li *ngFor="let member of attendances.members">
+      <p>{{member.id}}</p>
+    </li>
+  </ul>
+  <hr />
+  <h3>Tickets</h3>
+  <ul>
+    <li *ngFor="let ticket of attendances.tickets">
+      <p>{{ticket.barcode}}</p>
+    </li>
+  </ul>
+</div>
+
+<hr />
+<p>Select Attendence Product</p>
+
+<div class="row">
+  <div class="col-6">Season</div>
+  <div class="col-6">
+    <div *ngIf="products">
+      <select (change)="setSeason($event.target.value)">
+        <option disabled="disabled">Select Product</option>
+        <option *ngFor="let prodct of products" value={{prodct.id}}>{{prodct.id}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<button (click)="getAttendanceProduct()">Get Attendaces By Product</button>
+
+
+<div *ngIf="attendancesProduct">
+  <h3>Members</h3>
+  <ul>
+    <li *ngFor="let member of attendancesProduct.members">
+      <p>{{member.id}}</p>
+    </li>
+  </ul>
+  <hr />
+  <h3>Tickets</h3>
+  <ul>
+    <li *ngFor="let ticket of attendancesProduct.tickets">
+      <p>{{ticket.barcode}}</p>
+    </li>
+  </ul>
+</div>

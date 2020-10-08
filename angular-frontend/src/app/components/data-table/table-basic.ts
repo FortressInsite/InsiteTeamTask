@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { GetApiService } from 'src/service/get-api.service';
 import { Attendance } from 'src/Model/Attendance';
@@ -11,12 +11,27 @@ import { Attendance } from 'src/Model/Attendance';
 export class TableBasic implements OnInit {
   dataSource;
   displayedColumns: string[] = ['memberId', 'barcode'];
+  selectedValue: string;
 
   constructor(private api: GetApiService) {}
 
   ngOnInit() {
-    this.api.apiCall().subscribe((response) => {
+    this.TotalList();
+  }
+
+  TotalList() {
+    this.api.GetAll().subscribe((response) => {
       this.dataSource = new MatTableDataSource(response);
     });
+  }
+
+  changeHandler() {
+    if (this.selectedValue == '') {
+      this.TotalList();
+    } else {
+      this.api.GetProduct(this.selectedValue).subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data);
+      });
+    }
   }
 }

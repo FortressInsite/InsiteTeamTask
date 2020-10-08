@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GetApiService } from 'src/service/get-api.service';
 
 // called the decorator and it includes metadata for the
 @Component({
@@ -8,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-frontend';
+
+  constructor(private api: GetApiService) {}
 }

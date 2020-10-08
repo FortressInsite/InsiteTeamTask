@@ -7,6 +7,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TableBasic } from './components/data-table/table-basic';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, TableBasic],
@@ -17,7 +21,12 @@ import { TableBasic } from './components/data-table/table-basic';
     MatSortModule,
     MatTableModule,
     HttpClientModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    FormsModule,
   ],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent],
 })

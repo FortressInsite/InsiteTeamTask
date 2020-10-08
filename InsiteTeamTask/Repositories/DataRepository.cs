@@ -1,9 +1,7 @@
-﻿using InsiteTeamTask.MockData;
-using InsiteTeamTask.Models;
+﻿using InsiteTeamTask.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InsiteTeamTask.Repositories
 {
@@ -17,25 +15,39 @@ namespace InsiteTeamTask.Repositories
             List<Ticket> tickets = service.Tickets().ToList();
             List<Product> products = service.Products().ToList();
 
-            List<Attendance> attendanceList = new List<Attendance>();
+            List<Attendance> attendanceList = new List<Attendance>();            
 
-            for(int i = 0; i < members.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
+            var filteredMembers = members.Where(member => {
+                    var filteredProduct = products.Single(product => product.Id == member.ProductId);
+                
+                    return filteredProduct.GameId == gameNumber;
+                })
+                .Select(member =>
                 {
-                    Barcode = "N/A",
-                    MemberId = members[i].Id
+                    return new Attendance
+                    {
+                        Barcode = "N/A",
+                        MemberId = member.Id
+                    };
                 });
-            }
 
-            for (int i = 0; i < tickets.Count; i++)
-            {
-                attendanceList.Add(new Attendance()
+            attendanceList.AddRange(filteredMembers);
+
+            var filteredTickets = tickets.Where(ticket => {
+                    var filteredProduct = products.Single(product => product.Id == ticket.ProductId);
+
+                    return filteredProduct.GameId == gameNumber;
+                })
+                .Select(ticket =>
                 {
-                    Barcode = tickets[i].Barcode,
-                    MemberId = 0
+                    return new Attendance
+                    {
+                        Barcode = ticket.Barcode,
+                        MemberId = 0
+                    };  
                 });
-            }
+
+            attendanceList.AddRange(filteredTickets);
 
             return attendanceList;
         }

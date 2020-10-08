@@ -1,22 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { DataTableComponent } from './components/data-table/data-table.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TableBasic } from './components/data-table/table-basic';
 
 @NgModule({
-  declarations: [AppComponent, DataTableComponent],
+  declarations: [AppComponent, TableBasic],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

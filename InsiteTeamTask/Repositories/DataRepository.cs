@@ -64,12 +64,12 @@ namespace InsiteTeamTask.Repositories
 
         public List<Product> GetProducts()
         {
-            throw new NotImplementedException();
+            return new MockDataService().Products().ToList();
         }
 
         public List<Game> GetGames()
         {
-            throw new NotImplementedException();
+            return new MockDataService().Games().ToList();
         }
     }
 }

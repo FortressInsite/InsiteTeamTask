@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsiteTeamTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class AttendanceController : ControllerBase
     {

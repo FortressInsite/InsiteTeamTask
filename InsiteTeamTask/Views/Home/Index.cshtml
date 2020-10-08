@@ -1,7 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using System.Web.Optimization
+
 @{
+    Layout = null;
 }
 
-<h1>This is just a test index page.</h1>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/Content/Styles")
+</head>
+<body>
+    <div>
+        <h1>The Angular app should be rendered below.</h1>
+        <app-root></app-root>
+    </div>
+    @Scripts.Render("~/Bundles")
+</body>
+</html>

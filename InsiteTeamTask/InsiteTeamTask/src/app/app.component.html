@@ -141,7 +141,7 @@
 
 <div class="content" role="main">
   <div style="width:100%">
-
+    <!--I created 2 seperate forms so that it would be clear from the UI that seasons and games are handled together whilst product is on it own.-->
 
     <form [formGroup]="form" (ngSubmit)="submit()">
       <table>
@@ -163,6 +163,7 @@
               <label for="game">Game: </label>
               <select formControlName="game" class="form-control" [(ngModel)]="gameId">
                 <option>Select Game</option>
+                <!--Using a custom filter to only show games for the selected season-->
                 <option *ngFor="let game of gameData | filterGames:'seasonId':seasonId">{{game.id}}</option>
               </select>
               <div *ngIf="f.game.touched && f.game.invalid" class="alert alert-danger">

@@ -129,16 +129,9 @@ namespace InsiteTeamTask.Repositories
             return attendanceList;
         }
 
-        public List<Season> GetSeasons(int eventId)
-        {
-            throw new NotImplementedException();
-        }
+        // I have removed the 2 methods that were here GetSeasons(EventId) and GetEvents() as they had no implementaions and there are no fields defined for Events so I couldn't link a season to an event or vice versa.
 
-        public List<Event> GetEvents()
-        {
-            throw new NotImplementedException();
-        }
-
+        // The below methods were created to allow me to load the initial data needed to populate the dropdowns
         public List<Season> GetSeasons()
         {
             return new MockDataService().Seasons().ToList();

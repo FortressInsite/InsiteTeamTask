@@ -28,3 +28,4 @@ export class ApiService {
     return this.http.get(`https://localhost:44376/api/product/${productId}`);
   }
 }
+// I created this service so that it could be injected into my component to allow to load data using the API.

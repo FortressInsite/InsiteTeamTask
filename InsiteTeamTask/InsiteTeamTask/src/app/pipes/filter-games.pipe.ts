@@ -13,3 +13,5 @@ export class FilterGamesPipe implements PipeTransform {
 
   }
 }
+
+// I created this pipe to allow me to filter out games that aren't part of the chosen season.

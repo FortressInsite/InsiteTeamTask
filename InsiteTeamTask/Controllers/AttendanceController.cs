@@ -9,6 +9,8 @@ namespace InsiteTeamTask.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
+        // I created these endpoints so that the angular api service I created could load the needed data.
+
         [HttpGet]
         [Route("gameData")]
         public ActionResult<IEnumerable<Game>> GetGames()

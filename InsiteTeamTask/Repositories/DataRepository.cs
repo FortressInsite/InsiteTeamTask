@@ -139,6 +139,11 @@ namespace InsiteTeamTask.Repositories
             throw new NotImplementedException();
         }
 
+        public List<Season> GetSeasons()
+        {
+            return new MockDataService().Seasons().ToList();
+        }
+
         public List<Product> GetProducts()
         {
             return new MockDataService().Products().ToList();

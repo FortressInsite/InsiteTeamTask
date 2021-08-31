@@ -1,1 +1,9 @@
-<h1>Attendance</h1>
+<button (click)="show = 'members'" mat-raised-button>Members</button>
+<button (click)="show = 'tickets'" mat-raised-button>Tickets</button>
+<button (click)="show = 'attendance'" mat-raised-button>Attendance</button>
+
+<app-members *ngIf="show === 'members'"></app-members>
+
+<app-tickets *ngIf="show === 'tickets'"></app-tickets>
+
+<app-attendance *ngIf="show === 'attendance'"></app-attendance>

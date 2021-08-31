@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using InsiteTeamTask.Data.Providers;
+using InsiteTeamTask.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,19 @@ namespace InsiteTeamTask
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "AllowOrigin",
+                    builder => {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                    });
+            });
+            services.AddScoped<IDataService, DataService>();
+            services.AddScoped<IDataProvider, DataProvider>();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -32,7 +47,7 @@ namespace InsiteTeamTask
             {
                 app.UseHsts();
             }
-
+            app.UseCors("AllowOrigin");
             app.UseHttpsRedirection();
             app.UseMvc();
         }

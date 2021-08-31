@@ -1,0 +1,51 @@
+<h2>Attendance</h2>
+
+<div class="season-game">
+    <h3>Filter by combination of season and game</h3>
+    <select #season (change)="product.value = '0'; seasonChanged($event.target.value);">
+        <option value="-1">-- Select a season --</option>
+        <option *ngFor="let season of seasons" [value]="season.id">
+            {{season.name}}
+        </option>
+    </select>
+
+
+    <select #game (change)="product.value = '0'; gameChanged($event.target.value);">
+        <option value="-1">-- Select a game --</option>
+        <option *ngFor="let game of games" [value]="game.id">
+            {{game.description}}
+        </option>
+    </select>
+</div>
+
+<div class="product-code">
+    <h3>Filter by product code</h3>
+    <select #product (change)="season.value = -1; game.value = -1; productCodeChanged($event.target.value);">
+        <option value="0">-- Select a product codes --</option>
+        <option *ngFor="let code of productCodes" [value]="code">
+            {{code}}
+        </option>
+    </select>
+</div>
+
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" bgColor="whitesmoke">
+    <ng-container matColumnDef="attendanceType">
+        <th mat-header-cell *matHeaderCellDef> Attendance Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.attendanceType === 0 ? 'Season Ticket' : 'Game Ticket'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="memberId">
+        <th mat-header-cell *matHeaderCellDef> Member Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.memberId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="barcode">
+        <th mat-header-cell *matHeaderCellDef> Barcode</th>
+        <td mat-cell *matCellDef="let element"> {{element.barcode}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

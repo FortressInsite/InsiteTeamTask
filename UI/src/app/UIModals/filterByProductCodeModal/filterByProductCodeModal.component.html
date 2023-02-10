@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Filter By Product Code</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="filterForm" (ngSubmit)="search()">
+    <div class="form-group">
+      <label for="productcode">
+        Product Code
+      </label>
+      <input type="text" formControlName="productcode" class="form-control" placeholder="Enter Product Code" required>
+      <div class="error" *ngIf="
+              filterForm.get('productcode').errors?.required &&
+              (filterForm.get('productcode').dirty ||
+              filterForm.get('productcode').touched)
+            ">
+        Product Code is Required
+      </div>
+    </div>
+
+    <button class="btn btn-primary mt-3" type="submit">
+      Search
+    </button>
+  </form>
+</div>

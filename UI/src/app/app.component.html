@@ -1,1 +1,69 @@
-<h1>Attendance</h1>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a
+            class="navbar-brand"
+            href="#"
+        >
+        <h3> Attendance
+        </h3>  
+    
+    </a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+            class="collapse navbar-collapse"
+            id="navbarSupportedContent"
+        >
+        </div>
+    </div>
+</nav>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-12">
+            
+            <div ngbDropdown class="d-inline-block mb-3 fl-right">
+                
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                    Filter
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="openFilterModals(1)">By Product Code</button>
+                    <button ngbDropdownItem (click)="openFilterModals(2)">By Session and Game Id</button>
+                    
+                </div>
+                <span class="ml-1" (click)="fetchall()"> <i class="fa-sharp fa-solid fa-rotate-right reset"></i> </span>
+            </div>
+        
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>MemberId</th>
+                        <th>Barcode</th>
+                        <th>AttendanceType</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let attendance of attendances">
+                        <td>{{attendance.memberId}}</td>
+                        <td>{{attendance.barcode}}</td>
+                        <td>{{attendance.attendanceType == 1 ? "Game Ticket": "Season Ticket"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ngx-spinner
+bdColor = "rgba(51, 51, 51, 0.8)"
+size = "large"
+color = "#934d4d"
+type = "ball-8bits"></ngx-spinner>

@@ -65,8 +65,14 @@ namespace InsiteTeamTask.Services
 
         public List<Attendance> GetAttendanceForGame(int seasonId, int gameNumber)
         {
-            var Product = this.dataProvider.GetProducts().FirstOrDefault(p => p.SeasonId == seasonId && p.GameId == gameNumber);
-            return GetAttendanceForProduct(Product.Id);
+            var products = this.dataProvider.GetProducts();
+            var ProductForSeasonAndGame = products.Where(p => (p.SeasonId == seasonId && p.GameId == gameNumber) || (p.SeasonId == seasonId && p.GameId == 0)).ToList();
+            List<Attendance> Attendances = new List<Attendance>();
+            ProductForSeasonAndGame.ForEach(e =>
+            {
+                Attendances.AddRange(GetAttendanceForProduct(e.Id));
+            });
+            return Attendances;
         }
         
         public List<Attendance> GetAttendanceForProduct(string productCode)
@@ -97,7 +103,7 @@ namespace InsiteTeamTask.Services
                 {
                     Attendances.Add(new Attendance()
                     {
-                        AttendanceType = AttendanceType.SeasonTicket,
+                        AttendanceType = AttendanceType.GameTicket,
                         MemberId = 0,
                         Barcode = ticket.Barcode
                     });

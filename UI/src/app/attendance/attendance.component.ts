@@ -1,6 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MdbTablePaginationComponent, MdbTableDirective } from 'angular-bootstrap-md';
 import { Attendance } from '../interfaces/attendance';
 import { AttendanceService } from '../services/attendance.service';
 import { NotificationService } from '../services/notification.service';
@@ -13,8 +12,6 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit, AfterViewInit {
-  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective
   previous: any = [];
 
   attendance: Attendance[] = [];

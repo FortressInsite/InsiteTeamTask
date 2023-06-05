@@ -10,7 +10,7 @@
     {
         public AttendanceType AttendanceType { get; set; }
 
-        public int MemberId { get; set; }
+        public int? MemberId { get; set; }
 
         public string Barcode { get; set; }
     }

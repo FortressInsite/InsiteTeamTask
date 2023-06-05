@@ -6,6 +6,10 @@ namespace InsiteTeamTask.Data.Providers
 {
     public class DataProvider : IDataProvider
     {
+        public DataProvider()
+        {
+                
+        }
         public IEnumerable<Game> GetGames()
         {
             return DataStore.Games;

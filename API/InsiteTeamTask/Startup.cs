@@ -1,4 +1,5 @@
 ﻿
+using InsiteTeamTask.API.Extentions;
 using InsiteTeamTask.Data.Providers;
 using InsiteTeamTask.Services;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +21,9 @@ namespace InsiteTeamTask
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>{
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
             // Configure services and dependencies here
             services.AddTransient<IDataService, DataService>();
             services.AddTransient<IDataProvider, DataProvider>();
@@ -28,11 +31,17 @@ namespace InsiteTeamTask
 
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:4200");
-                                  });
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .WithOrigins("http://localhost:4200");
+                });
+                //options.AddPolicy(name: MyAllowSpecificOrigins,
+                //                  builder =>
+                //                  {
+                //                      builder.WithOrigins("http://localhost:4200").AllowAnyHeader().WithExposedHeaders("mycustomheader"); ;
+                //                  });
             });
         }
 
@@ -43,7 +52,7 @@ namespace InsiteTeamTask
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

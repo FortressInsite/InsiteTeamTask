@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+table {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 11px;
+    @media only screen and (max-width: 1000px) {
+      display: block;
+    }
+  }
+  
+  .custom-table th {
+    background-color: rgb(95, 94, 94) !important;
+    color: white;
+  }
+  
+  .custom-table tr {
+    background-color: white;
+    color: black;
+  }
+  .custom-table tr:nth-child(odd) {
+    background-color: rgb(238, 238, 238);
+  }
+  
+  .custom-table td {
+    color: black;
+  }
+  
+  .custom-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  @for $index from 0 through 200 {
+    $size: $index * 2;
+  
+    .table-column-#{$size} {
+      // flex: 0 1 #{$size}#{"px"};
+      min-width: #{$size}#{"px"};
+    }
+  }
+  
+  .mat-table {
+    background-color: transparent !important;
+  }
+  
+  mat-paginator {
+    background-color: rgb(95, 94, 94) !important;
+    border-radius: 0px 0px 10px 10px !important;
+  }
+  
+  .th-first-round {
+    border-radius: 10px 0px 0px 0px !important;
+  }
+  
+  .th-last-round {
+    border-radius: 0px 10px 0px 0px !important;
+  }

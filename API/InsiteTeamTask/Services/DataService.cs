@@ -9,98 +9,69 @@ using System.Linq;
 
 namespace InsiteTeamTask.Services
 {
-    public class DataService : IDataService
+   public class DataService : IDataService
+{
+    private readonly IDataProvider _dataProvider;
+
+    public DataService(IDataProvider dataProvider)
     {
-        private readonly IDataProvider _dataProvider;
-
-        public DataService(IDataProvider dataProvider)
-        {
-            _dataProvider = dataProvider;
-        }
-
-
-
-        public List<Attendance> GetAttendance()
-        {
-            try
-            {
-                var attendance = new List<Attendance>();
-                attendance = (from Product in _dataProvider.GetProducts()
-                              join Ticket in _dataProvider.GetTickets() on Product.Id equals Ticket.ProductId into joinedModels
-                              from Ticket1 in joinedModels.DefaultIfEmpty()
-                              join Member in _dataProvider.GetMembers() on Product.Id equals Member.ProductId into joinedModels1
-                              from Member1 in joinedModels1.DefaultIfEmpty()
-                              select new Attendance
-                              {
-                                  AttendanceType = Ticket1 == null ? AttendanceType.SeasonTicket : AttendanceType.GameTicket,
-                                  Barcode = Ticket1 != null ? Ticket1.Barcode : null,
-                                  MemberId = Member1 != null ? Member1.Id : null,
-                              }).ToList();
-                return attendance;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
-
-
-
-        public List<Attendance> GetAttendanceForGame(int seasonId, int gameNumber)
-        {
-            try
-            {
-                var attendance = new List<Attendance>();
-                attendance = (from Product in _dataProvider.GetProducts()
-                              join Ticket in _dataProvider.GetTickets() on Product.Id equals Ticket.ProductId into joinedModels
-                              from Ticket1 in joinedModels.DefaultIfEmpty()
-                              join Member in _dataProvider.GetMembers() on Product.Id equals Member.ProductId into joinedModels1
-                              from Member1 in joinedModels1.DefaultIfEmpty()
-                              where Product.SeasonId == seasonId && Product.GameId == gameNumber
-                              select new Attendance
-                              {
-                                  AttendanceType = Ticket1 == null ? AttendanceType.SeasonTicket : AttendanceType.GameTicket,
-                                  Barcode = Ticket1 != null ? Ticket1.Barcode : null,
-                                  MemberId = Member1 != null ? Member1.Id : null,
-                              }).ToList();
-                return attendance;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
-
-
-        public List<Attendance> GetAttendanceForProduct(string productCode)
-        {
-            try
-            {
-                var attendance = new List<Attendance>();
-                attendance = (from Product in _dataProvider.GetProducts()
-                              join Ticket in _dataProvider.GetTickets() on Product.Id equals Ticket.ProductId into joinedModels
-                              from Ticket1 in joinedModels.DefaultIfEmpty()
-                              join Member in _dataProvider.GetMembers() on Product.Id equals Member.ProductId into joinedModels1
-                              from Member1 in joinedModels1.DefaultIfEmpty()
-                              where Product.Id == productCode
-                              select new Attendance
-                              {
-                                  AttendanceType = Ticket1 == null ? AttendanceType.SeasonTicket : AttendanceType.GameTicket,
-                                  Barcode = Ticket1?.Barcode,
-                                  MemberId = Member1?.Id,
-                              }).ToList();
-                return attendance;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
+        _dataProvider = dataProvider;
     }
+
+    // Retrieves attendance for all products
+    public IEnumerable<Attendance> GetAttendance()
+    {
+        var Attendance = new List<Attendance>();
+        Attendance = (from Product in _dataProvider.GetProducts()
+                      join Ticket in _dataProvider.GetTickets() on Product.Id equals Ticket.ProductId into joinedModels
+                      from TicketEmpty in joinedModels.DefaultIfEmpty()
+                      join Member in _dataProvider.GetMembers() on Product.Id equals Member.ProductId into joinedModels1
+                      from MemberEmpty in joinedModels1.DefaultIfEmpty()
+                      select new Attendance
+                      {
+                          AttendanceType = TicketEmpty == null ? AttendanceType.SeasonTicket : AttendanceType.GameTicket,
+                          Barcode = TicketEmpty?.Barcode,
+                          MemberId = MemberEmpty?.Id,
+                      }).ToList();
+        return Attendance;
+    }
+
+    // Retrieves attendance for a specific game based on the provided season ID and game number
+    public IEnumerable<Attendance> GetAttendanceForGame(int seasonId, int gameNumber)
+    {
+        var Attendance = new List<Attendance>();
+        Attendance = (from Product in _dataProvider.GetProducts()
+                      join Ticket in _dataProvider.GetTickets() on Product.Id equals Ticket.ProductId into joinedModels
+                      from TicketEmpty in joinedModels.DefaultIfEmpty()
+                      join Member in _dataProvider.GetMembers() on Product.Id equals Member.ProductId into joinedModels1
+                      from MemberEmpty in joinedModels1.DefaultIfEmpty()
+                      where Product.SeasonId == seasonId && Product.GameId == gameNumber
+                      select new Attendance
+                      {
+                          AttendanceType = TicketEmpty == null ? AttendanceType.SeasonTicket : AttendanceType.GameTicket,
+                          Barcode = TicketEmpty?.Barcode,
+                          MemberId = MemberEmpty?.Id,
+                      }).ToList();
+        return Attendance;
+    }
+
+    // Retrieves attendance for a specific product based on the provided product code
+    public IEnumerable<Attendance> GetAttendanceForProduct(string productCode)
+    {
+        var Attendance = new List<Attendance>();
+        Attendance = (from Product in _dataProvider.GetProducts()
+                      join Ticket in _dataProvider.GetTickets() on Product.Id equals Ticket.ProductId into joinedModels
+                      from TicketEmpty in joinedModels.DefaultIfEmpty()
+                      join Member in _dataProvider.GetMembers() on Product.Id equals Member.ProductId into joinedModels1
+                      from MemberEmpty in joinedModels1.DefaultIfEmpty()
+                      where Product.Id == productCode
+                      select new Attendance
+                      {
+                          AttendanceType = TicketEmpty == null ? AttendanceType.SeasonTicket : AttendanceType.GameTicket,
+                          Barcode = TicketEmpty?.Barcode,
+                          MemberId = MemberEmpty?.Id,
+                      }).ToList();
+        return Attendance;
+    }
+}
 }

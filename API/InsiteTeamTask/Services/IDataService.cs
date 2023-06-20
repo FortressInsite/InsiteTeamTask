@@ -5,10 +5,10 @@ namespace InsiteTeamTask.Services
 {
     public interface IDataService
     {
-        List<Attendance> GetAttendance();
+        IEnumerable<Attendance> GetAttendance();
 
-        List<Attendance> GetAttendanceForGame(int seasonId, int gameNumber);
+        IEnumerable<Attendance> GetAttendanceForGame(int seasonId, int gameNumber);
 
-        List<Attendance> GetAttendanceForProduct(string productCode);
+        IEnumerable<Attendance> GetAttendanceForProduct(string productCode);
     }
 }

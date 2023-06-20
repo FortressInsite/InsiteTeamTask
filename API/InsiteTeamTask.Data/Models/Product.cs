@@ -10,6 +10,10 @@ namespace InsiteTeamTask.Data.Models
 
     public class Product
     {
+        public Product()
+        {
+
+        }
         public string Id { get; set; }
 
         public DateTime ValidFrom { get; set; }
